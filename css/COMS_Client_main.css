@@ -1,0 +1,300 @@
+#main_modal .modal-dialog, #show_participation_list_modal .modal-dialog, #search_participant_modal .modal-dialog {
+    max-width: 80%;
+}
+
+#main_modal .modal-content, #show_participation_list_modal .modal-content, #search_participant_modal .modal-content {
+    padding: 50px;
+}
+
+#main_participant_modal .modal-content, #participant_login_modal .modal-content {
+    padding: 1rem;
+}
+
+#main_modal a {
+    color: #000;
+    text-decoration: none;
+}
+
+#create_event_modal .modal-content, #edit_event_modal .modal-content, #add_participant_modal .modal-content, #edit_participant_modal .modal-content, #import_participants_modal .modal-content, #change_language_modal .modal-content {
+    padding: 30px;
+}
+
+#edit_event_modal .modal-dialog, #create_event_modal .modal-dialog, #add_participant_modal .modal-dialog, #edit_participant_modal .modal-dialog, #import_participants_modal .modal-dialog {
+    max-width: 50%;
+}
+
+#add_info_modal {
+    z-index: 9999;
+}
+
+#add_info_modal .modal-dialog, #add_anonymous_exams_modal .modal-dialog, #import_file_modal .modal-dialog {
+    max-width: 30%;
+}
+
+#add_info_modal .modal-content, #add_anonymous_exams_modal .modal-content, #import_file_modal .modal-content {
+    padding: 30px;
+}
+
+.table-container {
+    border: 1px solid #111;
+    padding: 50px;
+}
+
+.coms-js-table thead {
+    background-color: #bbb;
+}
+
+.coms-js-table .odd {
+    background-color: #eee;
+}
+
+.row-border-top td {
+    border-top: 2px solid #00f;
+}
+
+.row-border-bottom td {
+    border-bottom: 2px solid #00f;
+}
+
+.row-border-none td {
+    border: none;
+}
+
+.hide-past-events-separator td {
+    border: none;
+}
+
+#main_participant_modal table tbody tr {
+    border-top: 1px solid #dee2e6;
+}
+
+#main_participant_modal table th, #main_participant_modal table td {
+    padding: 10px;
+}
+
+.ato-nav a {
+    padding: 10px;
+}
+
+.ato-nav {
+    border-bottom: none;
+    padding-left: 25px;
+}
+
+.ato-nav li {
+    background-color: #bbb;
+    border: 1px solid #111;
+    margin-bottom: -1px;
+    z-index: 9;
+}
+
+.ato-nav li.active {
+    background-color: #fff;
+    border-bottom-color: transparent;
+}
+
+.participant-nav .nav-item {
+    margin-bottom: -7px;
+}
+
+.participant-nav li a:hover {
+    background-color: #eee;
+    border-color: #eee #eee #ddd;
+    text-decoration: none;
+}
+
+.participant-nav li.active {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-bottom-color: transparent;
+    color: #555;
+    cursor: default;
+}
+
+.events-buttons a {
+    background-color: #fff;
+    border: 1px solid #111;
+    padding: 10px;
+}
+
+.events-buttons a.active {
+    background-color: #777;
+    color: #fff !important;
+}
+
+.add-new-exam-event {
+    color: #bbb;
+    float: left;
+    margin-right: 20px;
+    margin-top: -12px;
+}
+
+.add-new-exam-event i {
+    color: #bbb;
+}
+
+#show_participation_list_modal, #show_participation_list i, #search_participant_modal {
+    color: #2B78E4;
+}
+
+#show_participation_list_modal button {
+    background-color: #2B78E4;
+    color: #fff;
+}
+
+.participation-nav label {
+    padding: 0 5px;
+}
+
+.add-participant i, .anonymous-exams img {
+    color: white;
+    background-color: #2B78E4;
+    border: 3px solid black;
+    border-radius: 50%;
+    height: 62px;
+    padding: 10px;
+    width: 62px;
+}
+
+.search-participant div {
+    background-color: #2B78E4;
+    border: 3px solid black;
+    border-radius: 20%;
+    color: white;
+    display: inline-block;
+    height: 62px;
+    padding: 10px;
+}
+
+.participant-arrow-right {
+    padding: 0 10px;
+}
+
+.anonymous-exams img {
+    margin-top: -10px;
+}
+
+.number-of-anonymous-exams {
+    width: 50px;
+}
+
+.radio-button {
+    margin: 6px;
+}
+
+.dataTables_info {
+    display: none;
+}
+
+.dataTables_scroll {
+    border-left: 1px solid #111;
+    border-right: 1px solid #111;
+    border-top: 1px solid #111;
+}
+
+.dataTables_filter label:before {
+    content: "\f002";
+    font-family: "Font Awesome 5 Free";
+    position: absolute;
+    font-weight: 900;
+    padding-left: 15px;
+    padding-top: 3px;
+}
+
+.dataTables_filter input {
+    border-radius: 15px;
+    text-indent: 25px;
+}
+
+#login_modal .modal-dialog {
+    max-width: 30%;
+}
+
+#login_modal .modal-content {
+    padding: 30px;
+}
+
+#login_modal h2 {
+    margin-bottom: 20px;
+}
+
+#login .login-submit{
+    cursor: pointer;
+    float: right;
+    margin-top: 30px;
+}
+
+#ato_logout input {
+    cursor: pointer;
+    float: right;
+}
+
+.captcha-image {
+    padding-left: 0;
+    width: auto;
+}
+
+button {
+    float: right;
+    margin: 4px;
+}
+
+.additional-emails-button {
+    cursor: pointer;
+}
+
+.additional-emails-button div {
+    background-color: white;
+    border: 1px solid black;
+    display: none;
+    max-width: 300px;
+    padding: 10px;
+    position: absolute;
+}
+
+.import-records-container {
+    border: 1px solid #000;
+    margin: 20px 0;
+    padding: 20px;
+}
+
+.import-records-container form {
+    clear: both;
+}
+
+.import-records-container-title {
+    background-color: white;
+    border: 1px solid black;
+    margin-top: -35px;
+    padding: 0 5px;
+    position: absolute;
+}
+
+.img-responsive {
+    max-width: 100%;
+}
+
+@media only screen and (max-width: 992px) {
+
+    #create_event_modal .modal-dialog {
+        max-width: 80%;
+    }
+
+    #login_modal .modal-dialog {
+        max-width: 80%;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .events-buttons a {
+        display: block;
+    }
+
+    .add-new-exam-event {
+        float: none;
+    }
+
+    .anonymous-exams img {
+        margin-top: 0;
+    }
+}
