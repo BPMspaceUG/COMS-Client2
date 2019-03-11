@@ -9,17 +9,15 @@
                                 <i class="far fa-user fa-2x"></i>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="LIAM2_Client_change_password.php">Change password</a>
-                                <a class="dropdown-item" href="LIAM2_Client_manage_emails.php">Manage E-Mails</a>
-                                <a class="dropdown-item" href="LIAM2_Client_logout.php">Logout</a>
+                                <a class="dropdown-item" href="change_password.php">Change password</a>
+                                <a class="dropdown-item" href="manage_emails.php">Manage E-Mails</a>
+                                <a class="dropdown-item" href="logout.php">Logout</a>
                             </div>
                         </li>
                     </ul>
                 </div>
             </nav>
             <h2>Welcome <?php echo $username; ?></h2>
-// include COMS_Client2_main.inc.php
-
         </div>
     </div>
 </div>
