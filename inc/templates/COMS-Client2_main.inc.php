@@ -18,8 +18,6 @@
                 </div>
             </nav>
             <h2>Welcome <?php echo $username; ?></h2>
-// include COMS_Client2_main.inc.php
-
         </div>
     </div>
 </div>
