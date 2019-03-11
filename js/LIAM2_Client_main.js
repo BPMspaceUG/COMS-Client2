@@ -8,3 +8,4 @@ $(document).ready( function () {
         $('#liam2_add_another_email_form').submit();
     })
 });
+console.log('asd');
