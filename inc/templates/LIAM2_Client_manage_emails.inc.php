@@ -74,7 +74,7 @@
                 </div>
             <?php endforeach; ?>
             <div class="row go-back">
-                <a class="form-submit btn btn-primary" href="">Go Back</a>
+                <a class="form-submit btn btn-primary" href="/">Go Back</a>
             </div>
         </div>
     </div>

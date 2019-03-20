@@ -6,7 +6,7 @@
             <?php endif; ?>
             <?php if (isset($success)) : ?>
                 <div class="alert alert-success" role="alert"><?php echo $success; ?></div>
-                <a class="form-submit btn btn-primary" href="LIAM2_Client_login.php">Login</a>
+                <a class="form-submit btn btn-primary" href="/LIAM2_Client_login.php">Login</a>
             <?php endif; ?>
             <?php if ($show_form) : ?>
                 <h2>Enter new password</h2>

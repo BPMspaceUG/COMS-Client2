@@ -21,8 +21,8 @@
                     <img src="<?php echo $captchaImage; ?>" class="captcha-image col-lg-4 col-sm-4" />
                     <input type="text" name="result" class="form-control col-lg-4 col-sm-8" required />
                 </div>
-                <a class="form-submit btn btn-primary" href="LIAM2_Client_forgot_password.php">Forgot password</a>
-                <a class="form-submit btn btn-primary" href="LIAM2_Client_self_register.php">Register</a>
+                <a class="form-submit btn btn-primary" href="/LIAM2_Client_forgot_password.php">Forgot password</a>
+                <a class="form-submit btn btn-primary" href="/LIAM2_Client_self_register.php">Register</a>
                 <input type="submit" class="form-submit btn btn-primary" value="Login" name="liam2_login" />
             </form>
         </div>

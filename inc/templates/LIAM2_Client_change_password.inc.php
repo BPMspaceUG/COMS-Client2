@@ -21,7 +21,7 @@
                     <label for="liam2_User_password_new_confirm" class="col-lg-4 col-sm-6">Confirm new password *</label>
                     <input type="password" name="liam2_User_password_new_confirm" class="form-control col-lg-8" minlength="10" required />
                 </div>
-                <a class="form-submit btn btn-primary" href="">Go Back</a>
+                <a class="form-submit btn btn-primary" href="/">Go Back</a>
                 <input type="submit" class="form-submit btn btn-primary" value="Change Password" name="liam2_change_password" />
             </form>
         </div>
