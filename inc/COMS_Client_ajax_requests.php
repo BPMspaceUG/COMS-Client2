@@ -25,7 +25,7 @@ function unique_multidim_array($array, $key) {
 if (isset($_POST['data'])) {
     if ($_POST['data'] == 'cancel-exam-event') {
         $exam_event_id = htmlspecialchars($_POST['exam_id']);
-        $check_id = json_decode(coms_client_api(array("cmd" => "read", "paramJS" => array("table" => "v_coms_trainingorg_exam_events", "where" => "a.coms_exam_event_id = $exam_event_id && a.coms_training_org_id = $_SESSION[user_id]"))), true);
+        $check_id = json_decode(coms_client_api(array("cmd" => "read", "paramJS" => array("table" => "v_coms_trainingorg_exam_events", "where" => "a.coms_exam_event_id = $exam_event_id && a.coms_training_org_id = $_SESSION[coms_user_id]"))), true);
         if (!$check_id) {
             $result = 'Incorrect Exam Event';
         } else {
@@ -44,7 +44,7 @@ if (isset($_POST['data'])) {
     }
     if ($_POST['data'] == 'edit-exam-event') {
         $exam_event_id = htmlspecialchars($_POST['exam_event_id']);
-        $exam_event_data = json_decode(coms_client_api(array("cmd" => "read", "paramJS" => array("table" => "v_exam_event__exam__trainingorg__trainer", "where" => "a.coms_exam_event_id = $exam_event_id && a.coms_training_org_id = $_SESSION[user_id]"))), true);
+        $exam_event_data = json_decode(coms_client_api(array("cmd" => "read", "paramJS" => array("table" => "v_exam_event__exam__trainingorg__trainer", "where" => "a.coms_exam_event_id = $exam_event_id && a.coms_training_org_id = $_SESSION[coms_user_id]"))), true);
         if ($exam_event_data) {
             $exam_id = $exam_event_data[0]['coms_exam_id'];
             $trainer_id = $exam_event_data[0]['coms_trainer_id'];
@@ -67,14 +67,14 @@ if (isset($_POST['data'])) {
     }
     if ($_POST['data'] == 'show-participation-list') {
         $exam_event_id = htmlspecialchars($_POST['exam_event_id']);
-        $exam_event = json_decode(coms_client_api(array("cmd" => "read", "paramJS" => array("table" => "v_exam_event__exam__trainingorg__trainer", "where" => "a.coms_training_org_id = $_SESSION[user_id] && coms_exam_event_id = $exam_event_id"))), true);
+        $exam_event = json_decode(coms_client_api(array("cmd" => "read", "paramJS" => array("table" => "v_exam_event__exam__trainingorg__trainer", "where" => "a.coms_training_org_id = $_SESSION[coms_user_id] && coms_exam_event_id = $exam_event_id"))), true);
         $exam_event_state_id = $exam_event[0]['event_state_id'];
         if ($exam_event && isset($exam_event[0]['coms_exam_event_name'])) {
             $heading = "manage Participants for " . $exam_event[0]['coms_exam_event_name'] . " - " . $exam_event[0]['event_state_name'];
         } else {
             $heading = 'manage Participants';
         }
-        $participants = json_decode(coms_client_api(array("cmd" => "read", "paramJS" => array("table" => "v_coms_participant__exam_event", "where" => "coms_training_org_id = $_SESSION[user_id] && coms_exam_event_id = $exam_event_id"))), true);
+        $participants = json_decode(coms_client_api(array("cmd" => "read", "paramJS" => array("table" => "v_coms_participant__exam_event", "where" => "coms_training_org_id = $_SESSION[coms_user_id] && coms_exam_event_id = $exam_event_id"))), true);
         $languages = json_decode(coms_client_api(array("cmd" => "read", "paramJS" => array("table" => "v_coms_language"))), true);
         $genders = array(
             'female',
@@ -116,25 +116,25 @@ if (isset($_POST['data'])) {
     }
     if ($_POST['data'] == 'search-participant') {
         $exam_event_id = htmlspecialchars($_POST['exam_event_id']);
-        /*$already_joined_participants = json_decode(coms_client_api(array("cmd" => "read", "paramJS" => array("table" => "v_coms_participant__exam_event", "where" => "coms_training_org_id = $_SESSION[user_id] && coms_exam_event_id != $exam_event_id"))), true);
+        /*$already_joined_participants = json_decode(coms_client_api(array("cmd" => "read", "paramJS" => array("table" => "v_coms_participant__exam_event", "where" => "coms_training_org_id = $_SESSION[coms_user_id] && coms_exam_event_id != $exam_event_id"))), true);
         if ($already_joined_participants) {
             $participants_ids = array();
             foreach ($already_joined_participants as $already_joined_participant) {
                 array_push($participants_ids, $already_joined_participant['coms_participant_id']);
             }
             $participants_ids = implode(',', $participants_ids);
-            $participants = json_decode(coms_client_api(array("cmd" => "read", "paramJS" => array("table" => "v_coms_participant__exam_event", "where" => "coms_training_org_id = $_SESSION[user_id] && coms_participant_id not in ($participants_ids)"))), true);
+            $participants = json_decode(coms_client_api(array("cmd" => "read", "paramJS" => array("table" => "v_coms_participant__exam_event", "where" => "coms_training_org_id = $_SESSION[coms_user_id] && coms_participant_id not in ($participants_ids)"))), true);
         } else {
-            $participants = json_decode(coms_client_api(array("cmd" => "read", "paramJS" => array("table" => "v_coms_participant__exam_event", "where" => "coms_training_org_id = $_SESSION[user_id]"))), true);
+            $participants = json_decode(coms_client_api(array("cmd" => "read", "paramJS" => array("table" => "v_coms_participant__exam_event", "where" => "coms_training_org_id = $_SESSION[coms_user_id]"))), true);
         }*/
 
         //$participants = $_POST['all_participants'];
 
-        /*$participants = json_decode(coms_client_api(array("cmd" => "read", "paramJS" => array("table" => "v_coms_participant__exam_event", "where" => "coms_training_org_id = $_SESSION[user_id] && coms_exam_event_id != $exam_event_id"))), true);
+        /*$participants = json_decode(coms_client_api(array("cmd" => "read", "paramJS" => array("table" => "v_coms_participant__exam_event", "where" => "coms_training_org_id = $_SESSION[coms_user_id] && coms_exam_event_id != $exam_event_id"))), true);
         $participants = unique_multidim_array($participants, 'coms_participant_id');*/
         //require_once($_SERVER['DOCUMENT_ROOT'] . '/inc/templates/COMS_Client_search_participant.inc.php');
 
-        $participants = json_decode(coms_client_api(array("cmd" => "read", "paramJS" => array("table" => "v_coms_participant__exam_event", "where" => "coms_training_org_id = $_SESSION[user_id] && coms_exam_event_id = $exam_event_id"))), true);
+        $participants = json_decode(coms_client_api(array("cmd" => "read", "paramJS" => array("table" => "v_coms_participant__exam_event", "where" => "coms_training_org_id = $_SESSION[coms_user_id] && coms_exam_event_id = $exam_event_id"))), true);
         $arr = array();
         foreach ($participants as $participant) {
             array_push($arr, $participant['coms_participant_id']);
@@ -157,7 +157,7 @@ if (isset($_POST['data'])) {
     }
     if ($_POST['data'] == 'cancel-participant-state') {
         $participant_exam_event_id = htmlspecialchars($_POST['coms_participant_exam_event_id']);
-        $check_id = json_decode(coms_client_api(array("cmd" => "read", "paramJS" => array("table" => "v_coms_participant__exam_event", "where" => "a.coms_participant_exam_event_id = $participant_exam_event_id && a.coms_training_org_id = $_SESSION[user_id]"))), true);
+        $check_id = json_decode(coms_client_api(array("cmd" => "read", "paramJS" => array("table" => "v_coms_participant__exam_event", "where" => "a.coms_participant_exam_event_id = $participant_exam_event_id && a.coms_training_org_id = $_SESSION[coms_user_id]"))), true);
         if (!$check_id) {
             $result = 'Incorrect Participant';
         } else {
@@ -235,7 +235,7 @@ if (isset($_POST['data'])) {
         $participants = json_decode($_POST['items'], true);
         $exam_event_id = htmlspecialchars($_POST['exam_event_id']);
         foreach ($participants as $participant) {
-            $participant_exist = json_decode(coms_client_api(array("cmd" => "read", "paramJS" => array("table" => "v_coms_participant__exam_event", "where" => "coms_training_org_id = $_SESSION[user_id] && coms_exam_event_id = $exam_event_id && coms_participant_id = $participant[99]"))), true);
+            $participant_exist = json_decode(coms_client_api(array("cmd" => "read", "paramJS" => array("table" => "v_coms_participant__exam_event", "where" => "coms_training_org_id = $_SESSION[coms_user_id] && coms_exam_event_id = $exam_event_id && coms_participant_id = $participant[99]"))), true);
             if ($participant_exist) {
                 $error = 'This participant is already added to this exam event';
             } else {

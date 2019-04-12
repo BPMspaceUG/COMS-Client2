@@ -21,7 +21,7 @@ if (isset($_POST['login'])) {
                 "where" => "a.coms_training_organisation_passwd_hash = '$bookingpw' && a.coms_training_organisation_id = $PARTID"))), true);
             if ($db_content) {
                 $_SESSION['name'] = $db_content[0]['coms_training_organisation_name'];
-                $_SESSION['user_id'] = $db_content[0]['coms_training_organisation_id'];
+                $_SESSION['coms_user_id'] = $db_content[0]['coms_training_organisation_id'];
                 $_SESSION['user_type'] = $USER_TYPE;
             } else {
                 $error = 'Wrong password';
@@ -58,7 +58,7 @@ if (isset($_POST['edit_event'])) {
         $error = 'Please fill all the fields.';
     } else {
         $exam_event_id = htmlspecialchars($_POST['event_exam_id']);
-        $edited_exam = json_decode(coms_client_api(array("cmd" => "read", "paramJS" => array("table" => "v_coms_trainingorg_exam_events", "where" => "a.coms_exam_event_id = $exam_event_id && coms_training_org_id = $_SESSION[user_id]"))), true);
+        $edited_exam = json_decode(coms_client_api(array("cmd" => "read", "paramJS" => array("table" => "v_coms_trainingorg_exam_events", "where" => "a.coms_exam_event_id = $exam_event_id && coms_training_org_id = $_SESSION[coms_user_id]"))), true);
         if (!$edited_exam) {
             $error = 'You are trying to edit an incorrect Exam Event';
         } else {
@@ -202,7 +202,7 @@ if (isset($_POST['add_existing_particiant'])) {
         $participants = $_POST['check_participant'];
         $exam_event_id = $_POST['exam_event_id'];
         foreach ($participants as $participant) {
-            $participant_exist = json_decode(coms_client_api(array("cmd" => "read", "paramJS" => array("table" => "v_coms_participant__exam_event", "where" => "coms_training_org_id = $_SESSION[user_id] && coms_exam_event_id = $exam_event_id && coms_participant_id = $participant"))), true);
+            $participant_exist = json_decode(coms_client_api(array("cmd" => "read", "paramJS" => array("table" => "v_coms_participant__exam_event", "where" => "coms_training_org_id = $_SESSION[coms_user_id] && coms_exam_event_id = $exam_event_id && coms_participant_id = $participant"))), true);
             if ($participant_exist) {
                 $error = 'This participant is already added to this exam event';
             } else {
@@ -226,7 +226,7 @@ if (isset($_POST['add_anonymous_exams'])) {
     $exam_event_id = htmlspecialchars($_POST['exam_event_id']);
     $date = htmlspecialchars($_POST['anonymous_exams_date']);
     $additional_exam_info = htmlspecialchars($_POST['anonymous_exams']);
-    $edited_exam = json_decode(coms_client_api(array("cmd" => "read", "paramJS" => array("table" => "v_exam_event__exam__trainingorg__trainer", "where" => "a.coms_exam_event_id = $exam_event_id && coms_training_org_id = $_SESSION[user_id]"))), true);
+    $edited_exam = json_decode(coms_client_api(array("cmd" => "read", "paramJS" => array("table" => "v_exam_event__exam__trainingorg__trainer", "where" => "a.coms_exam_event_id = $exam_event_id && coms_training_org_id = $_SESSION[coms_user_id]"))), true);
     if (!$edited_exam) {
         $error = 'You are trying to edit an incorrect Exam Event';
     } else {
@@ -448,7 +448,7 @@ function unique_multidim_array($array, $key) {
     return $temp_array;
 }
 
-if (!isset($_SESSION['user_id']) || $_SESSION['user_id'] !== $PARTID  || $_SESSION['user_type'] != 'ato') {
+if (!isset($_SESSION['user_id']) || $_SESSION['coms_user_id'] !== $PARTID  || $_SESSION['user_type'] != 'ato') {
     generateImage($expression->n1.' + '.$expression->n2.' =', $captchaImage);
     require_once($_SERVER['DOCUMENT_ROOT'] . '/inc/templates/COMS_Client_login.inc.php');
 } else {
@@ -472,7 +472,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['user_id'] !== $PARTID  || $_SESSI
     $tridcsv = implode(",", $trid);
     $exidcsv = implode(",", $exid);
     $trexor = coms_client_api(array("cmd" => "read", "paramJS" => array("table" => "v_csvexport_trainer_exam", "where" => "coms_trainer_id in ($tridcsv) && coms_exam_id in ($exidcsv)")));
-    $all_participants = json_decode(coms_client_api(array("cmd" => "read", "paramJS" => array("table" => "v_coms_participant__exam_event", "where" => "coms_training_org_id = $_SESSION[user_id]"))), true);
+    $all_participants = json_decode(coms_client_api(array("cmd" => "read", "paramJS" => array("table" => "v_coms_participant__exam_event", "where" => "coms_training_org_id = $_SESSION[coms_user_id]"))), true);
     $all_participants = unique_multidim_array($all_participants, 'coms_participant_id');
     $all_participants = json_encode($all_participants);
     require_once($_SERVER['DOCUMENT_ROOT'] . '/inc/templates/COMS_Client_main.inc.php');

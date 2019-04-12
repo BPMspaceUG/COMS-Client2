@@ -193,7 +193,7 @@
                                         <tr class="<?php echo $border_top; ?>">
                                             <td><?php echo $event['coms_exam_event_id']; ?></td>
                                             <td><?php echo $event['coms_exam_event_name']; ?></td>
-                                            <td><?php echo $event['coms_exam_event_percent']; ?></td>
+                                            <td><?php echo $event['coms_participant_exam_event_percent']; ?></td>
                                             <td><?php echo $event['coms_exam_event_start_date']; ?></td>
                                             <td><?php echo $event['participant_state_name']; ?></td>
                                         </tr>

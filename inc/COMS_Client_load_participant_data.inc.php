@@ -6,7 +6,7 @@ if (isset($_POST['ato_logout'])) {
     header('Location: //' . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI']);
     exit();
 }
-if (isset($_POST['login'])) {
+/*if (isset($_POST['login'])) {
     if (file_exists($_POST['captcha-image'])) unlink($_POST['captcha-image']);
     if (!$_POST['booking-pw']) {
         $error = 'Please fill all the fields.';
@@ -21,14 +21,14 @@ if (isset($_POST['login'])) {
                 "where" => "a.coms_participant_md5 = '$PARTID_MD5' && a.coms_participant_id = $PARTID"))), true);
             if ($db_content) {
                 $_SESSION['name'] = $db_content[0]['coms_participant_firstname'] . ' ' . $db_content[0]['coms_participant_lastname'];
-                $_SESSION['user_id'] = $db_content[0]['coms_participant_id'];
+                $_SESSION['coms_user_id'] = $db_content[0]['coms_participant_id'];
                 $_SESSION['user_type'] = $USER_TYPE;
             } else {
                 $error = 'Wrong password';
             }
         }
     }
-}
+}*/
 if (isset($_POST['complete_participant_data'])) {
     if (!isset($_POST['language']) || !isset($_POST['gender']) || !$_POST['date_of_birth'] || !$_POST['place_of_birth'] || !isset($_POST['country_of_birth'])) {
         $error = 'Please fill all the fields.';
@@ -39,7 +39,7 @@ if (isset($_POST['complete_participant_data'])) {
         $place_of_birth = htmlspecialchars($_POST['place_of_birth']);
         $country_of_birth = htmlspecialchars($_POST['country_of_birth']);
         $errr = json_decode(coms_client_api(array("cmd" => "makeTransition", "paramJS" => array("table" => "coms_participant", "row" => array(
-            "coms_participant_id" => $_SESSION['user_id'],
+            "coms_participant_id" => $_SESSION['coms_user_id'],
             "coms_participant_language_id" => $language,
             "coms_participant_gender" => $gender,
             "coms_participant_dateofbirth" => $date_of_birth,
@@ -60,7 +60,7 @@ if (isset($_POST['change_participant_language'])) {
     } else {
         $language = htmlspecialchars($_POST['language']);
         $errr = json_decode(coms_client_api(array("cmd" => "makeTransition", "paramJS" => array("table" => "coms_participant", "row" => array(
-            "coms_participant_id" => $_SESSION['user_id'],
+            "coms_participant_id" => $_SESSION['coms_user_id'],
             "coms_participant_language_id" => $language,
             "state_id" => 111
         )))), true);
@@ -93,20 +93,25 @@ function translate($key, $language) {
     return $text;
 }
 
-if (!isset($_SESSION['user_id']) || $_SESSION['user_id'] !== $PARTID || $_SESSION['user_type'] != 'participant') {
-    $db_content = json_decode(coms_client_api(array("cmd" => "read", "paramJS" => array("table" => "v_coms_participant__id__email",
-        "where" => "a.coms_participant_md5 = '$PARTID_MD5' && a.coms_participant_id = $PARTID"))), true);
-    if ($db_content[0]['coms_participant_LIAM_id']) {
-        generateImage($expression->n1.' + '.$expression->n2.' =', $captchaImage);
-        require_once($_SERVER['DOCUMENT_ROOT'] . '/inc/templates/participant/COMS_Client_login.inc.php');
-    } else {
-        echo 'redirect to LIAM2';
+    if (!isset($_SESSION['coms_user_id'])) {
+        //$bookingpw = hash("sha512", htmlspecialchars($_POST['booking-pw']) . $PARTID_MD5);
+        $db_content = json_decode(coms_client_api(array("cmd" => "read", "paramJS" => array("table" => "v_coms_participant__id__email",
+            "where" => "a.coms_participant_md5 = '$PARTID_MD5' && a.coms_participant_id = $PARTID"))), true);
+        if ($db_content) {
+            $_SESSION['name'] = $db_content[0]['coms_participant_firstname'] . ' ' . $db_content[0]['coms_participant_lastname'];
+            $_SESSION['coms_user_id'] = $db_content[0]['coms_participant_id'];
+            $_SESSION['user_type'] = $USER_TYPE;
+        } else {
+            $error = "Couldn't login";
+        }
     }
-} else {
+    if ($_SESSION['coms_user_id'] !== $PARTID || $_SESSION['user_type'] != 'participant') {
+        header("Location: /index.php");
+    }
     $participant = json_decode(coms_client_api(array(
         "cmd" => "read", "paramJS" => array(
             "table" => "v_coms_participant__id__email",
-            "where" => "a.coms_participant_id = $_SESSION[user_id]"
+            "where" => "a.coms_participant_id = $_SESSION[coms_user_id]"
         )
     )), true);
     $genders = array(
@@ -125,7 +130,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['user_id'] !== $PARTID || $_SESSIO
     $participant_events = json_decode(coms_client_api(array(
         "cmd" => "read", "paramJS" => array(
             "table" => "v_coms_participant__exam_event",
-            "where" => "a.coms_participant_id = $_SESSION[user_id]",
+            "where" => "a.coms_participant_id = $_SESSION[coms_user_id]",
             "orderby" => "coms_exam_event_start_date",
             "ascdesc" => "desc"
         )
@@ -133,8 +138,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['user_id'] !== $PARTID || $_SESSIO
     $certificates = json_decode(coms_client_api(array(
         "cmd" => "read", "paramJS" => array(
             "table" => "v_certificate_participant",
-            "where" => "a.coms_participant_id = $_SESSION[user_id] && a.coms_certificate_type_id != 6 && state_id in (73, 74, 75)"
+            "where" => "a.coms_participant_id = $_SESSION[coms_user_id] && a.coms_certificate_type_id != 6 && state_id in (73, 74, 75)"
         )
     )), true);
     require_once($_SERVER['DOCUMENT_ROOT'] . '/inc/templates/participant/COMS_Client_main.inc.php');
-}

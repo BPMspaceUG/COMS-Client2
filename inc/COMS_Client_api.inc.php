@@ -1,14 +1,14 @@
 <?php
 function coms_client_api($data) {
-    global $url;
-    global $token;
+    global $coms_url;
+    global $coms_token;
 
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
-    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_URL, $coms_url);
     
     $headers = array();
-    $headers[] = 'Cookie: token='.$token;
+    $headers[] = 'Cookie: token='.$coms_token;
     $data = json_encode($data);
     if ($data) {
         curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
@@ -19,4 +19,3 @@ function coms_client_api($data) {
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     return curl_exec($ch);
 }
-?>
