@@ -4,6 +4,11 @@ $(document).ready( function () {
         keyboard: false
     });
 
+    $('#error_modal').modal({
+        backdrop: 'static',
+        keyboard: false
+    });
+
     var main_table = $('.main-table').DataTable({
         paging: false,
         scrollY: 400,
