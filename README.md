@@ -9,4 +9,5 @@
         1. $headers[] = 'Cookie: token=[ENTER TOKEN HERE]';
         2. $url = "[ENTER URL HERE]";
         3. define('AUTH_KEY', 'liam2_key');
+        4. define('LIAM_URL', 'liam_url');
      
