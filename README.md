@@ -6,8 +6,9 @@
 2. TODO
    1. "git clone https://github.com/BPMspaceUG/COMS-Client2.git"
    2. copy /inc/api.EXAMPLE_secret.inc.php to /inc/api.secret.inc.php and set: 
-        1. $headers[] = 'Cookie: token=[ENTER TOKEN HERE]';
-        2. $url = "[ENTER URL HERE]";
-        3. define('AUTH_KEY', 'liam2_key');
-        4. define('LIAM_URL', 'liam_url');
+        1. $coms_url="COMS SERVER API URL";
+        2. $coms_token="COMS SERVER TOKEN";
+        3. $liam_url="LIAM SERVER API";
+        4. $liam_token="LIAM SERVER TOKEN";
+        5. define('LIAM_URL', 'LIAM CLIENT URL');
      
